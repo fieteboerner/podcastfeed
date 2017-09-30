@@ -96,6 +96,13 @@ class Media
      */
     private $image;
 
+     /**
+     * Explicit flag of the media. Allowed: yes, explicit, true or no, clean, false
+     *
+     * @var string
+     */
+     private $explicit = null;
+
     /**
      * Class constructor
      *
@@ -117,6 +124,7 @@ class Media
 
         // Optional values
         $this->isPermaLink = $this->getValue($data, 'guid-is-perma-link');
+        $this->explicit = $this->getValue($data, 'explicit');
 
         // Ensure publish date is a DateTime instance
         if (is_string($this->pubDate)) {
@@ -222,6 +230,12 @@ class Media
             $itune_image = $dom->createElement("itunes:image");
             $itune_image->setAttribute("href", $this->image);
             $item->appendChild($itune_image);
+        }
+
+        // Create the <itunes:explicit>
+        if ($this->explicit != null) {
+            $explicit = $dom->createElement("itunes:explicit", $this->explicit);
+            $channel->appendChild($explicit);
         }
     }
 }

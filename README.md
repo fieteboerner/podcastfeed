@@ -65,6 +65,7 @@ PodcastFeed::setHeader([
     'author'      => 'John Doe',
     'email'       => 'john.doe@example.com',
     'category'    => 'Technology',
+    'explicit'    => 'no',
     'language'    => 'en-us',
     'copyright'   => '2016 John Doe & Family',
 ]);
@@ -86,6 +87,7 @@ foreach($this->podcastRepository->getPublished() as $podcast)
         'length'      => $podcast->media_size,
         'duration'    => $podcast->duration,
         'image'       => $podcast->image->url(),
+        'explicit'    => 'yes',
     ]);
 }
 ```
@@ -107,6 +109,7 @@ public function index()
             'length'      => $podcast->media_size,
             'duration'    => $podcast->duration,
             'image'       => $podcast->image->url(),
+            'explicit'    => 'yes',
         ]);
     }
 
